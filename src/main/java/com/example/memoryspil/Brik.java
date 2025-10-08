@@ -7,15 +7,17 @@ import javafx.scene.image.ImageView;
 import javafx.util.Duration;
 
 public class Brik extends ImageView {
-    private Image forside, bagside; // Billeder af forsiden og bagsiden af kortet
-    public Brik par; // Det kort, dette kort er i par med
+    public Image forside, bagside; // Billeder af forsiden og bagsiden af kortet
+    private String billednavn;
     private boolean klikkede = false; // Har spilleren klikket på kortet?
+    public boolean parFundet = false;
     private MemorySpil spil;
 
     /**
      * Brik - Skab en ny brik, der befinder sig ved x og y med navnet af et billede
      */
     public Brik(int x, int y, String filnavn, MemorySpil server) {
+        billednavn = filnavn;
         forside = new Image(getClass().getResource(filnavn).toString());
         bagside = new Image(getClass().getResource("bagside.png").toString());
         setImage(bagside);
@@ -23,21 +25,6 @@ public class Brik extends ImageView {
         setX(x);
         setY(y);
 
-        spil = server;
-    }
-
-    /**
-     * Brik - Skab en ny brik, der befinder sig ved x og y med navnet af et billede og den brik, det er parret med
-     */
-    public Brik(int x, int y, String filnavn, Brik par, MemorySpil server) {
-        forside = new Image(getClass().getResource(filnavn).toString());
-        bagside = new Image(getClass().getResource("bagside.png").toString());
-        setImage(bagside);
-
-        setX(x);
-        setY(y);
-
-        this.par = par;
         spil = server;
     }
 
@@ -83,16 +70,13 @@ public class Brik extends ImageView {
         return klikAnimation(bagside);
     }
 
-    public void skabPar() {
-
-    }
-
-    public boolean erParret(Brik b) {
-        return par == b;
+    public String getBillednavn() {
+        return this.billednavn;
     }
 
     public void fjern() {
-        klikkede = true; // Vi har fundet et par, så denne brik kan ikke klikkes mere
+        parFundet = true; // Vi har fundet et par, så denne brik kan ikke klikkes mere
 
+        System.out.println("par fundet");
     }
 }
