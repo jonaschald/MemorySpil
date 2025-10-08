@@ -2,6 +2,7 @@ package com.example.memoryspil;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -41,15 +42,33 @@ public class MemorySpil extends Application {
     private Brik valgtKort;
     private int antalTræk = 0;
     private boolean klik = false;
+    private Button prøvIgen;
+    private Stage stage;
+    private Pane root = new Pane();
 
     @Override
     public void start(Stage stage) {
-        Pane root = new Pane();
+       this.stage = stage;
+       startingStage();
+    }
+    private void startingStage(){
+        prøvIgen = new Button();
+        prøvIgen.setText("Prøv Igen");
+        prøvIgen.setOnAction(e -> restart());
+
 
         Scene scene = new Scene(root, 1440, 750);
+
         stage.setTitle("Memory Spil");
         stage.setScene(scene);
         stage.show();
+
+        Button button = new Button("Prøv igen");
+        button.setLayoutX(30);
+        button.setLayoutY(700);
+        button.setScaleX(1.5);
+        button.setScaleY(1.5);
+        root.getChildren().add(button);
 
         Text træk = new Text(44, 88, "Antal træk: " + antalTræk);
         træk.setFont(new Font(36));
@@ -106,5 +125,12 @@ public class MemorySpil extends Application {
         }
 
         klik = false;
+    }
+
+    public void restart() {
+        antalTræk = 0;
+
+        root.getChildren().clear();
+        startingStage();
     }
 }
