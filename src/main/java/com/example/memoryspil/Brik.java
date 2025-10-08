@@ -8,6 +8,7 @@ import javafx.util.Duration;
 
 public class Brik extends ImageView {
     private Image forside, bagside;
+    private Brik par;
 
     public Brik(int x, int y, String filnavn) {
         forside = new Image(getClass().getResource(filnavn).toString());
@@ -18,13 +19,40 @@ public class Brik extends ImageView {
         setY(y);
     }
 
-    public void klik() throws InterruptedException {
-        ScaleTransition st = new ScaleTransition(Duration.millis(500), this);
-        st.setToX(0);
-        ScaleTransition st2 = new ScaleTransition(Duration.millis(500), this);
-        st2.setToX(1);
+    public Brik(int x, int y, String filnavn, Brik par) {
+        forside = new Image(getClass().getResource(filnavn).toString());
+        bagside = new Image(getClass().getResource("bagside.png").toString());
+        setImage(bagside);
 
-        SequentialTransition st3 = new SequentialTransition(st, st2);
-        st3.play();
+        setX(x);
+        setY(y);
+
+        this.par = par;
+    }
+
+    public void klik() {
+        visForside();
+    }
+
+    private void klikAnimation(Image billede) {
+        ScaleTransition skalerNed = new ScaleTransition(Duration.millis(500), this);
+        skalerNed.setToX(0);
+        skalerNed.setOnFinished(e -> {
+            setImage(billede);
+        });
+
+        ScaleTransition skalerOp = new ScaleTransition(Duration.millis(500), this);
+        skalerOp.setToX(1);
+
+        SequentialTransition animation = new SequentialTransition(skalerNed, skalerOp);
+        animation.play();
+    }
+
+    public void visForside() {
+        klikAnimation(forside);
+    }
+
+    public void visBagside() {
+        klikAnimation(bagside);
     }
 }
