@@ -46,7 +46,7 @@ public class MemorySpil extends Application {
     public void start(Stage stage) {
         Pane root = new Pane();
 
-        Scene scene = new Scene(root, 1440, 1024);
+        Scene scene = new Scene(root, 1440, 750);
         stage.setTitle("Memory Spil");
         stage.setScene(scene);
         stage.show();
