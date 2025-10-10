@@ -170,7 +170,9 @@ public class MemorySpil extends Application {
                 b.fjern();
             } else {
                 valgtKort.visBagside(); // Vend dem om igen
-                b.visBagside();
+                b.visBagside().setOnFinished(e -> {
+                    klik = false;
+                });
             }
 
             ++antalTræk;
