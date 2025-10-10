@@ -63,10 +63,12 @@ public class Brik extends ImageView {
     }
 
     public SequentialTransition visForside() {
+        klikkede = true;
         return klikAnimation(forside);
     }
 
     public SequentialTransition visBagside() {
+        klikkede = true;
         return klikAnimation(bagside);
     }
 

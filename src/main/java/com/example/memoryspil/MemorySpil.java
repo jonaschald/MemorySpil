@@ -163,11 +163,13 @@ public class MemorySpil extends Application {
         // Har vi ikke valgt et kort?
         if (valgtKort == null) {
             valgtKort = b;
+            klik = false;
         } else {
             // Er disse kort et par?
             if (Objects.equals(valgtKort.getBillednavn(), b.getBillednavn())) {
                 valgtKort.fjern();  // Fjern dem fra spillet
                 b.fjern();
+                klik = false;
             } else {
                 valgtKort.visBagside(); // Vend dem om igen
                 b.visBagside().setOnFinished(e -> {
@@ -180,8 +182,6 @@ public class MemorySpil extends Application {
 
             valgtKort = null;
         }
-
-        klik = false;
     }
 
     public void restart() {
